@@ -205,7 +205,7 @@ public class NewHGA {
         //child = localSearch(child, 500);
         System.out.println("Started tabu search");
         BlindTabuSearch blindts = new BlindTabuSearch(child);
-        child = blindts.run(300);
+        child = blindts.run(100);
         TabuSearch ts = new TabuSearch(child);
         child = ts.run(5000);
         if (child.getTotalConflictCount() == 0) {

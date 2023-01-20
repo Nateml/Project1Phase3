@@ -298,5 +298,26 @@ class Configuration{
         this.conflictCount = -1;
         return getTotalConflictCount();
     }
+
+    public Vertex getVertexWithMostConflicts() {
+        Vertex v = partition.get(0).get(0);
+        int mostConflicts = 0;
+        for (ArrayList<Vertex> colourClass : partition) {
+            for (Vertex vertex : colourClass) {
+                ArrayList<Vertex> neighbours = vertex.getNeighbours();
+                int conflicts = 0;
+                for (Vertex neighbour : neighbours) {
+                    if (colourClass.stream().anyMatch(element -> element.identification() == neighbour.identification())) {
+                        conflicts++;
+                    }
+                }
+                if (conflicts > mostConflicts) {
+                    mostConflicts = conflicts;
+                    v = vertex;
+                }
+            }
+        }
+        return v;
+    }
     
 }

@@ -31,6 +31,12 @@ public class LowerBound{
             else if (possibleNodes.size() == 0) {
                 pivotNode = exploredNodes.stream().findFirst().get();
             }
+            else if (exploredNodes.size() == 0) {
+                pivotNode = possibleNodes.stream().findFirst().get();
+            }
+            else if (possibleNodes.size() == 0) {
+                pivotNode = exploredNodes.stream().findFirst().get();
+            }
             else if(vertexMap.get(possibleNodes.stream().findFirst().get()).getAmountOfNeighbours() > vertexMap.get(exploredNodes.stream().findFirst().get()).getAmountOfNeighbours()){
                 pivotNode = possibleNodes.stream().findFirst().get();
             } else {
