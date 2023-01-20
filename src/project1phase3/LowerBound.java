@@ -1,5 +1,6 @@
 package project1phase3;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -69,8 +70,13 @@ public class LowerBound{
             vertexMap.put(a, vertex);
         }
 
-        MergeSort.mergesort(vertexMap);
+        //MergeSort.mergesort(vertexMap);
         vertexSet = new LinkedHashSet<>(vertexMap.keySet());
+        Integer[] vertexArray = new Integer[vertexSet.size()];
+        vertexSet.toArray(vertexArray);
+        Arrays.sort(vertexArray);
+        vertexSet.clear();
+        vertexSet.addAll(Arrays.asList(vertexArray));
 
         BronKerboschWithPivot(null, vertexSet, null, 1);
         int lowerBound = maximumCliqueSizeCorrect;
