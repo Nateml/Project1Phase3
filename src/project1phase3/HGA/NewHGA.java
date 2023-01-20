@@ -20,7 +20,7 @@ class SaturationComparator implements Comparator<Vertex> {
 
     @Override
     public int compare(Vertex v1, Vertex v2) {
-        return Integer.compare(v2.saturationDegree, v1.saturationDegree);
+        return Integer.compare(v2.getSaturationDegree(), v1.getSaturationDegree());
     }
 }
 

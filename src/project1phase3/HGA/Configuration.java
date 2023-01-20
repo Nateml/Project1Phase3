@@ -79,7 +79,7 @@ class Configuration{
                 }
                 boolean isConflictingSet = false;
                 for (int l = 0; l < partition.get(j).size(); l++) { // looping through every vertex in the colour class
-                    if (vertices.get(i).neighbours.contains(partition.get(j).get(l))) {
+                    if (vertices.get(i).getNeighboursAsIntList().contains(partition.get(j).get(l).identification())) {
                         isConflictingSet = true;
                         break;
                     }
@@ -105,9 +105,9 @@ class Configuration{
             for (int j = 0; j < partition.get(i).size(); j++) {
                 int conflicts = 0;
                 final int j2 = j;
-                for (int neighbour = 0; neighbour < partition.get(i).get(j).neighbours.size(); neighbour++) {
+                for (int neighbour = 0; neighbour < partition.get(i).get(j).getAmountOfNeighbours(); neighbour++) {
                     final int neighbour2 = neighbour;
-                    if (partition.get(i).stream().anyMatch(element -> element.identification() == partition.get(i2).get(j2).neighbours.get(neighbour2).identification())) {
+                    if (partition.get(i).stream().anyMatch(element -> element.identification() == partition.get(i2).get(j2).getNeighboursAsIntList().get(neighbour2))) {
                         conflicts++;
                     }
                 }

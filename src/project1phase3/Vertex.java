@@ -1,7 +1,7 @@
 package project1phase3;
 
-
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 public class Vertex {
     /*
@@ -9,9 +9,10 @@ public class Vertex {
      * It stores the saturation degree of the vertex and its number.
      * Create a vertex by writing: Vertex v = new Vertex(<saturation_degree>, <i>)
      */
-    public int saturationDegree;
+    protected int saturationDegree;
     protected int i;
-    public ArrayList<Vertex> neighbours = new ArrayList<>();
+    protected ArrayList<Vertex> neighbours = new ArrayList<>();
+    protected LinkedHashSet<Integer> currentNeighbours = new LinkedHashSet<Integer>();
     
     /**
      * Creates a Vertex object.
@@ -30,6 +31,14 @@ public class Vertex {
         return newVertex;
     }
 
+    public int getSaturationDegree() {
+        return this.saturationDegree;
+    }
+
+    public ArrayList<Vertex> getNeighbours() {
+        return neighbours;
+    }
+
     /**
      * Adds a vertex as a neighbour to the vertex that this method is called with
      * @param neighbour the neighbouring vertex
@@ -37,10 +46,10 @@ public class Vertex {
     public void add_neighbour(Vertex neighbour) {
         this.saturationDegree++;
         neighbours.add(neighbour);
+        currentNeighbours.add(Integer.valueOf(neighbour.identification()));
     }
-
-    public ArrayList<Vertex> getNeighbours() {
-        return neighbours;
+    public int getAmountOfNeighbours(){
+        return neighbours.size();
     }
 
     /**
@@ -53,6 +62,10 @@ public class Vertex {
             neighbourArray[i] = neighbours.get(i);
         }
         return neighbourArray;
+    }
+
+    public LinkedHashSet<Integer> getNeighboursAsLinkedHashSet(){
+        return currentNeighbours;
     }
 
     /**
