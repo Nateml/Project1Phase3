@@ -93,7 +93,7 @@ public class TabuSearch {
                 bestConfig = currentConfig;
             }
             
-            //System.out.println(currentConfig.getTotalConflictCount());
+            System.out.println(currentConfig.getTotalConflictCount());
             iterations--;
             count++;
             long end_time = System.nanoTime() - start_time;
@@ -103,6 +103,21 @@ public class TabuSearch {
 
         System.out.println("Average tabu search time = " + (sum_time / iterations_complete));
         return bestConfig;
+    }
+
+    private List<Move> getNeighbourMoves2(Configuration c) {
+        Vertex v = c.getVertexWithMostConflicts();
+        List<Move> moves = new ArrayList<>();
+        int[] vPos = c.getVertexPos(v.identification());
+        for (int i = 0; i < c.partition.size(); i++) {
+            if (i == vPos[0]) continue;
+            Configuration newConfig = c.clone();
+            newConfig.moveVertex(vPos, i);
+            int conflicts = newConfig.getTotalConflictCount();
+            Move move = new Move(v.identification(), i, conflicts, vPos[0]);
+            moves.add(move);
+        }
+        return moves;
     }
 
     private List<Move> getNeighbourMoves(Configuration c) {

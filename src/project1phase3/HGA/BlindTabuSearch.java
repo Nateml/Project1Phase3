@@ -22,10 +22,11 @@ public class BlindTabuSearch {
 
         while (iterations > 0) {
 
-            List<Entry<Vertex, Integer>> conflictCounts = currentConfig.getVertexConflictCounts();
+            //List<Entry<Vertex, Integer>> conflictCounts = currentConfig.getVertexConflictCounts();
+            Vertex v = currentConfig.getVertexWithMostConflicts();
             int i = (int) (Math.random() * currentConfig.partition.size());
 
-            Vertex v = conflictCounts.get(0).getKey();
+            //Vertex v = conflictCounts.get(0).getKey();
             int[] k = currentConfig.getVertexPos(v.identification());
             Move move = new Move(v.identification(), i, k[0]);
             if (!tabuList.contains(move)) {
@@ -41,7 +42,7 @@ public class BlindTabuSearch {
                 }
             }
 
-            //System.out.println("b: " + currentConfig.recalculateConflicts());
+            System.out.println("b: " + currentConfig.recalculateConflicts());
             tabuList.update();
             iterations--;
         }
