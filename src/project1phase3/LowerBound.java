@@ -1,34 +1,25 @@
 package project1phase3;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 
 public class LowerBound{
     // now BronKerBosch will return an arrylist of sets
 
     private int maximumCliqueSizeCorrect = 0; // initializes the lower bound
-    private int maximumCliqueSizeWithoutPivot = 0; // this is for the algorithm without pivot
-    private LinkedHashMap<Integer, Vertex> vertexMap = new LinkedHashMap<>(); // initializes a hashmap where the key
+    public static HashMap<Integer, Vertex> vertexMap = new HashMap<>(); // initializes a hashmap where the key
     private LinkedHashSet<Integer> vertexSet;
-    private Set<Integer> setForIntegers = new HashSet<Integer>(); // this is an empty set that is used for the union and intersection operations
-    static ArrayList< LinkedHashSet<Integer>> cliquesList = new ArrayList<LinkedHashSet<Integer>>();
-    // run lowerbound then type lowerBound.cliquelist to get all the maximal cliques
+    private int[] vertexIdArray;
 
     //below is the algorithm with pivot
     //the inputs are linkedHashSets of Integers where the Integer is the vertex id
     //call with mode 0 to return the arraylist of sets and with mode 1 to call for the lower bound
-    public void BronKerboschWithPivot (LinkedHashSet<Integer> growingClique, LinkedHashSet<Integer> possibleNodes, LinkedHashSet<Integer> exploredNodes, int mode){
+    public void BronKerboschWithPivot (LinkedHashSet<Integer> growingClique, LinkedHashSet<Integer> possibleNodes, LinkedHashSet<Integer> exploredNodes){
         if(possibleNodes.size() == 0 && exploredNodes.size() == 0){
-            if(mode == 0){
-                cliquesList.add(growingClique);
-            } else {
-                if(growingClique.size()>maximumCliqueSizeCorrect){
-                    maximumCliqueSizeCorrect = growingClique.size();
-                }
+            if(growingClique.size()>maximumCliqueSizeCorrect){
+                maximumCliqueSizeCorrect = growingClique.size();
             }
         } else{
             // choose a pivot from the set P U X as the vertex with the most neighbours
@@ -52,7 +43,7 @@ public class LowerBound{
                 // this is the intersect of explorednodes and the neighbours of the node added to the clique
                 LinkedHashSet<Integer> updatedExploredNodes = new LinkedHashSet<Integer>(exploredNodes);
                 updatedExploredNodes.retainAll(vertexMap.get(node).getNeighboursAsLinkedHashSet());
-                BronKerboschWithPivot(updatedGrowingClique,updatedPossibleNodes,updatedExploredNodes,mode);
+                BronKerboschWithPivot(updatedGrowingClique,updatedPossibleNodes,updatedExploredNodes);
                 possibleNodes.remove(node);
                 exploredNodes.add(node);
                 // above is the backtracking step
@@ -64,15 +55,17 @@ public class LowerBound{
 
     public int getLowerBound(Vertex[] v){
         // put the arraylist into a hashmap and hashset of the graph
+        vertexIdArray = new int[v.length];
+        int count = 0;
         for(Vertex vertex:v){
-            Integer a = Integer.valueOf(vertex.i);
+            Integer a = Integer.valueOf(vertex.identification());
             vertexMap.put(a, vertex);
+            vertexIdArray[count] = vertex.identification();
+            count++;
         }
-
-        MergeSort.mergesort(vertexMap);
-        vertexSet = new LinkedHashSet<>(vertexMap.keySet());
-
-        BronKerboschWithPivot(null, vertexSet, null, 1);
+        MergeSort.mergesort(vertexIdArray);
+        vertexSet = Arrays.stream(vertexIdArray).boxed().collect(Collectors.toCollection(LinkedHashSet::new));
+        BronKerboschWithPivot(null, vertexSet, null);
         int lowerBound = maximumCliqueSizeCorrect;
         return lowerBound;
     }
