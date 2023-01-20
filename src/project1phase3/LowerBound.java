@@ -25,7 +25,13 @@ public class LowerBound{
             // choose a pivot from the set P U X as the vertex with the most neighbours
             // since the input is sorted on the amount of neighbours the first element is the biggest one
             Integer pivotNode = 0;
-            if(vertexMap.get(possibleNodes.stream().findFirst().get()).getAmountOfNeighbours() > vertexMap.get(exploredNodes.stream().findFirst().get()).getAmountOfNeighbours()){
+            if (exploredNodes.size() == 0) {
+                pivotNode = possibleNodes.stream().findFirst().get();
+            }
+            else if (possibleNodes.size() == 0) {
+                pivotNode = exploredNodes.stream().findFirst().get();
+            }
+            else if(vertexMap.get(possibleNodes.stream().findFirst().get()).getAmountOfNeighbours() > vertexMap.get(exploredNodes.stream().findFirst().get()).getAmountOfNeighbours()){
                 pivotNode = possibleNodes.stream().findFirst().get();
             } else {
                 pivotNode = exploredNodes.stream().findFirst().get();
