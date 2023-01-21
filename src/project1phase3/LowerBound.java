@@ -69,9 +69,11 @@ public class LowerBound{
             vertexIdArray[count] = vertex.identification();
             count++;
         }
+        System.out.println("start");
         MergeSort.mergesort(vertexIdArray);
         vertexSet = Arrays.stream(vertexIdArray).boxed().collect(Collectors.toCollection(LinkedHashSet::new));
         BronKerboschWithPivot(null, vertexSet, null);
+        System.out.println("end");
         int lowerBound = maximumCliqueSizeCorrect;
         return lowerBound;
     }
