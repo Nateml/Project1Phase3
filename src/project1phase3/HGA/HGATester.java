@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import project1phase3.Vertex;
+import project1phase3.Graph;
 import project1phase3.LowerBound;
 
 public class HGATester {
@@ -14,8 +15,9 @@ public class HGATester {
         //readGraph("C:/Users/natem/Projects/graph-colouring-group30_2022/GraphColouring/src/example_graphs/graph06_2022.txt");
         //readGraph("C:/Users/natem/Downloads/Tournament_TestSuite/phase3_2022_graph04.txt");
         //readGraph("C:/Users/natem/Downloads/DIMACS/queen13_13.col");
-        readGraph("C:/Users/natem/Downloads/DIMACS/le450_15c.col.txt");
-        //readGraph("./Tournament_TestSuite/phase3_2022_graph15.txt");
+        //readGraph("C:/Users/natem/Downloads/DIMACS/le450_15c.col.txt");
+        readGraph("./Tournament_TestSuite/phase3_2022_graph01.txt");
+        //Graph graph = new Graph("C:/Users/natem/Downloads/DIMACS/le450_15c.col.txt");
         LowerBound lb = new LowerBound();
         int lowerbound = lb.getLowerBound(v);
         System.out.println("Lowerbound = " + lowerbound);

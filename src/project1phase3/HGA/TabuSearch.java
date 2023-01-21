@@ -1,9 +1,7 @@
 package project1phase3.HGA;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map.Entry;
 
 import project1phase3.Vertex;
 
@@ -29,6 +27,7 @@ public class TabuSearch {
             }
             long start_time = System.nanoTime();
             List<Move> neighbours = getNeighbourMoves(currentConfig);
+            //List<Move> neighbours = getNeighbourMoves2(currentConfig);
 
             /* 
             List<Move> neighbours2 = new ArrayList<>();
