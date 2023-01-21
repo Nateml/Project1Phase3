@@ -16,13 +16,12 @@ public class HGATester {
         //readGraph("C:/Users/natem/Downloads/Tournament_TestSuite/phase3_2022_graph04.txt");
         //readGraph("C:/Users/natem/Downloads/DIMACS/queen13_13.col");
         //readGraph("C:/Users/natem/Downloads/DIMACS/le450_15c.col.txt");
-        readGraph("./Tournament_TestSuite/phase3_2022_graph01.txt");
-        //Graph graph = new Graph("C:/Users/natem/Downloads/DIMACS/le450_15c.col.txt");
+        Graph graph = new Graph("./Tournament_TestSuite/phase3_2022_graph01.txt");
+        NewHGA hga = new NewHGA(graph);
+        System.out.println(hga.upperBound(graph.getNumVertices(), 100));
         LowerBound lb = new LowerBound();
-        int lowerbound = lb.getLowerBound(v);
-        System.out.println("Lowerbound = " + lowerbound);
-        NewHGA hga = new NewHGA(v);
-        System.out.println(hga.upperBound(v.length, 100));
+        int lowerbound = lb.getLowerBound(graph);
+        System.out.println("LOWERBOUND = " + lowerbound);
         try {
             long average_crossover_time = hga.sum_time_crossover / hga.crossover_iterations;
             long average_tabu_time = hga.sum_time_tabu / hga.tabu_iterations;

@@ -31,12 +31,6 @@ public class LowerBound{
             else if (possibleNodes.size() == 0) {
                 pivotNode = exploredNodes.stream().findFirst().get();
             }
-            else if (exploredNodes.size() == 0) {
-                pivotNode = possibleNodes.stream().findFirst().get();
-            }
-            else if (possibleNodes.size() == 0) {
-                pivotNode = exploredNodes.stream().findFirst().get();
-            }
             else if(vertexMap.get(possibleNodes.stream().findFirst().get()).getAmountOfNeighbours() > vertexMap.get(exploredNodes.stream().findFirst().get()).getAmountOfNeighbours()){
                 pivotNode = possibleNodes.stream().findFirst().get();
             } else {
@@ -65,11 +59,11 @@ public class LowerBound{
     }
 
 
-    public int getLowerBound(Vertex[] v){
+    public int getLowerBound(Graph graph){
         // put the arraylist into a hashmap and hashset of the graph
-        vertexIdArray = new int[v.length];
+        vertexIdArray = new int[graph.getVertices().length];
         int count = 0;
-        for(Vertex vertex:v){
+        for(Vertex vertex: graph.getVertices()){
             Integer a = Integer.valueOf(vertex.identification());
             vertexMap.put(a, vertex);
             vertexIdArray[count] = vertex.identification();

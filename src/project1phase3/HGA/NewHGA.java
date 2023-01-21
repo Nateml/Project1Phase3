@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 
 import project1phase3.HGA.Configuration;
-
+import project1phase3.Graph;
 import project1phase3.Vertex;
 
 class SaturationComparator implements Comparator<Vertex> {
@@ -51,11 +51,11 @@ public class NewHGA {
     int A = 10;
     double alpha = 0.6;
 
-    public NewHGA(Vertex[] vertices) {
+    public NewHGA(Graph graph) {
         this.v = new ArrayList<>();
         // create array of vertices using the information from the edges.
         // Also notes down that the vertices which are connected by the edge are neighbours.
-        for (Vertex vertex : vertices) {
+        for (Vertex vertex : graph.getVertices()) {
             v.add(vertex);
         }
     }
