@@ -25,16 +25,10 @@ public class LowerBound{
             // choose a pivot from the set P U X as the vertex with the most neighbours
             // since the input is sorted on the amount of neighbours the first element is the biggest one
             Integer pivotNode = 0;
-            if (exploredNodes.size() == 0) {
+            if (exploredNodes.isEmpty()) {
                 pivotNode = possibleNodes.stream().findFirst().get();
             }
-            else if (possibleNodes.size() == 0) {
-                pivotNode = exploredNodes.stream().findFirst().get();
-            }
-            else if (exploredNodes.size() == 0) {
-                pivotNode = possibleNodes.stream().findFirst().get();
-            }
-            else if (possibleNodes.size() == 0) {
+            else if (possibleNodes.isEmpty()) {
                 pivotNode = exploredNodes.stream().findFirst().get();
             }
             else if(vertexMap.get(possibleNodes.stream().findFirst().get()).getAmountOfNeighbours() > vertexMap.get(exploredNodes.stream().findFirst().get()).getAmountOfNeighbours()){
@@ -77,7 +71,9 @@ public class LowerBound{
         }
         MergeSort.mergesort(vertexIdArray);
         vertexSet = Arrays.stream(vertexIdArray).boxed().collect(Collectors.toCollection(LinkedHashSet::new));
-        BronKerboschWithPivot(null, vertexSet, null);
+        LinkedHashSet<Integer> initialGrowingClique = new LinkedHashSet<Integer>();
+        LinkedHashSet<Integer> initialExploredNodes = new LinkedHashSet<Integer>();
+        BronKerboschWithPivot(initialGrowingClique, vertexSet, initialExploredNodes);
         int lowerBound = maximumCliqueSizeCorrect;
         return lowerBound;
     }

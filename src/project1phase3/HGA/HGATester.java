@@ -14,8 +14,8 @@ public class HGATester {
         //readGraph("C:/Users/natem/Projects/graph-colouring-group30_2022/GraphColouring/src/example_graphs/graph06_2022.txt");
         //readGraph("C:/Users/natem/Downloads/Tournament_TestSuite/phase3_2022_graph04.txt");
         //readGraph("C:/Users/natem/Downloads/DIMACS/queen13_13.col");
-        readGraph("C:/Users/natem/Downloads/DIMACS/le450_15c.col.txt");
-        //readGraph("./Tournament_TestSuite/phase3_2022_graph15.txt");
+        //readGraph("C:/Users/natem/Downloads/DIMACS/le450_15c.col.txt");
+        readGraph("./Tournament_TestSuite/phase3_2022_graph01.txt");
         LowerBound lb = new LowerBound();
         int lowerbound = lb.getLowerBound(v);
         System.out.println("Lowerbound = " + lowerbound);
