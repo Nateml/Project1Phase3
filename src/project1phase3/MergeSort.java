@@ -1,56 +1,53 @@
 package project1phase3;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 public class MergeSort {
 
-    private static void merge(LinkedHashMap<Integer,Vertex> left, LinkedHashMap<Integer,Vertex> right, LinkedHashMap<Integer,Vertex> initial){
-        // create arrays with the key values of left and right
-        int leftSize = initial.size()/2;
-        int rightSize = initial.size()-leftSize;
-        initial.clear();
-        int[] leftKeys = left.entrySet().stream().mapToInt(Map.Entry::getKey).toArray(); // these two arrays are created so we can acces the 
-        int[] rightKeys = right.entrySet().stream().mapToInt(Map.Entry::getKey).toArray(); // hashmap by index cause we can get the key by index of the array
-        int l = 0, r = 0;
-        while(l < leftSize && r < rightSize){
-            // here i have to compare the neighbours of the verteces at l and r index
-            if(left.get(leftKeys[l]).getAmountOfNeighbours() > right.get(rightKeys[r]).getAmountOfNeighbours()){
-                initial.put(leftKeys[l],left.get(leftKeys[l]));
+    private static void merge(int[] left, int[] right, int[] initial){
+        int leftsize = initial.length / 2;
+        int rightsize = initial.length - leftsize;
+        int i = 0, l = 0, r = 0;
+
+        while(l < leftsize && r < rightsize){
+            if(LowerBound.vertexMap.get(left[l]).getAmountOfNeighbours() > LowerBound.vertexMap.get(right[r]).getAmountOfNeighbours()){
+                initial[i] = left[l];
+                i++;
                 l++;
             } else {
-                initial.put(rightKeys[r],right.get(rightKeys[r]));
+                initial[i] = right[r];
+                i++;
                 r++;
             }
         }
-        while(l < leftSize){
-            initial.put(leftKeys[l],left.get(leftKeys[l]));
+        while(l < leftsize){
+            initial[i] = left[l];
+            i++;
             l++;
         }
-        while(r < rightSize){
-            initial.put(rightKeys[r],right.get(rightKeys[r]));
+        while(r < rightsize){
+            initial[i] = right[r];
+            i++;
+            r++;
         }
 
     }
 
-    public static void mergesort(LinkedHashMap<Integer,Vertex> s){
-        int length = s.size();
-        if(length <= 1) return;
-        int midpoint = length/2;
-        LinkedHashMap<Integer,Vertex> leftMap = new LinkedHashMap<Integer,Vertex>();
-        LinkedHashMap<Integer,Vertex> rightMap = new LinkedHashMap<Integer,Vertex>();
+    public static void mergesort(int[] s){
+        int initialLength = s.length;
+        if(initialLength <= 1) return;
+        int midpoint = initialLength/2;
+        int[] left = new int[midpoint];
+        int[] right = new int[initialLength-midpoint];
         int count  = 0;
-        for(HashMap.Entry<Integer, Vertex> entry : s.entrySet()){
-            if(count <= midpoint){
-                leftMap.put(entry.getKey(), entry.getValue());
-            } else {
-                rightMap.put(entry.getKey(), entry.getValue());
-            }
-            count ++;
+        for(; count < midpoint; count++){
+            left[count] = s[count];
         }
-        mergesort(leftMap);
-        mergesort(rightMap);
-        merge(leftMap,rightMap,s);
+        count = 0;
+        for(; count < right.length; count++){
+            right[count] = s[count + midpoint];
+        }
+
+        mergesort(left);
+        mergesort(right);
+        merge(left,right,s);
     }
 }

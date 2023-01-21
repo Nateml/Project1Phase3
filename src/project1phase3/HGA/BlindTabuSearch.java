@@ -42,7 +42,6 @@ public class BlindTabuSearch {
                 }
             }
 
-            System.out.println("b: " + currentConfig.recalculateConflicts());
             tabuList.update();
             iterations--;
         }

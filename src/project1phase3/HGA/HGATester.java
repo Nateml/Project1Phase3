@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import project1phase3.Vertex;
+import project1phase3.Graph;
 import project1phase3.LowerBound;
 
 public class HGATester {
@@ -14,13 +15,13 @@ public class HGATester {
         //readGraph("C:/Users/natem/Projects/graph-colouring-group30_2022/GraphColouring/src/example_graphs/graph06_2022.txt");
         //readGraph("C:/Users/natem/Downloads/Tournament_TestSuite/phase3_2022_graph04.txt");
         //readGraph("C:/Users/natem/Downloads/DIMACS/queen13_13.col");
-        readGraph("C:/Users/natem/Downloads/DIMACS/le450_15c.col.txt");
-        //readGraph("./Tournament_TestSuite/phase3_2022_graph15.txt");
+        //readGraph("C:/Users/natem/Downloads/DIMACS/le450_15c.col.txt");
+        Graph graph = new Graph("./Tournament_TestSuite/phase3_2022_graph01.txt");
         LowerBound lb = new LowerBound();
-        int lowerbound = lb.getLowerBound(v);
-        System.out.println("Lowerbound = " + lowerbound);
-        NewHGA hga = new NewHGA(v);
-        System.out.println(hga.upperBound(v.length, 100));
+        int lowerbound = lb.getLowerBound(graph);
+        System.out.println("LOWERBOUND = " + lowerbound);
+        NewHGA hga = new NewHGA(graph);
+        System.out.println(hga.upperBound(graph.getNumVertices(), 100));
         try {
             long average_crossover_time = hga.sum_time_crossover / hga.crossover_iterations;
             long average_tabu_time = hga.sum_time_tabu / hga.tabu_iterations;

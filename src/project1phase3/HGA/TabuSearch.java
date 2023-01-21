@@ -1,9 +1,7 @@
 package project1phase3.HGA;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map.Entry;
 
 import project1phase3.Vertex;
 
@@ -29,6 +27,7 @@ public class TabuSearch {
             }
             long start_time = System.nanoTime();
             List<Move> neighbours = getNeighbourMoves(currentConfig);
+            //List<Move> neighbours = getNeighbourMoves2(currentConfig);
 
             /* 
             List<Move> neighbours2 = new ArrayList<>();
@@ -59,7 +58,6 @@ public class TabuSearch {
                 if (tabuList.contains(move)) {
                     if (move.getConflicts() < bestConfig.getTotalConflictCount()) {
                         bestMove = move;
-                        System.out.println("Used aspiration criteria");
                         break;
                     } else {
                         continue;
@@ -85,15 +83,12 @@ public class TabuSearch {
                 long end_time = System.nanoTime() - start_time;
                 sum_time += end_time;
                 iterations_complete++;
-                System.out.println("found in "+ count + " iterations");
-                System.out.println("Average tabu search time = " + (sum_time/iterations_complete));
                 return currentConfig;
             }
             if (currentConfig.getTotalConflictCount() <= bestConfig.getTotalConflictCount()) {
                 bestConfig = currentConfig;
             }
             
-            System.out.println(currentConfig.getTotalConflictCount());
             iterations--;
             count++;
             long end_time = System.nanoTime() - start_time;
@@ -101,7 +96,7 @@ public class TabuSearch {
             iterations_complete++;
         }
 
-        System.out.println("Average tabu search time = " + (sum_time / iterations_complete));
+        //System.out.println("Average tabu search time = " + (sum_time / iterations_complete));
         return bestConfig;
     }
 
