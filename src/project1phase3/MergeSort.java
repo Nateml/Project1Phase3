@@ -14,6 +14,8 @@ public class MergeSort {
                 l++;
             } else {
                 initial[i] = right[r];
+                i++;
+                r++;
             }
         }
         while(l < leftsize){
@@ -30,11 +32,11 @@ public class MergeSort {
     }
 
     public static void mergesort(int[] s){
-        int length = s.length;
-        if(length <= 1) return;
-        int midpoint = length/2;
+        int initialLength = s.length;
+        if(initialLength <= 1) return;
+        int midpoint = initialLength/2;
         int[] left = new int[midpoint];
-        int[] right = new int[length-midpoint];
+        int[] right = new int[initialLength-midpoint];
         int count  = 0;
         for(; count < midpoint; count++){
             left[count] = s[count];
