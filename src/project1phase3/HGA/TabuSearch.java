@@ -58,7 +58,6 @@ public class TabuSearch {
                 if (tabuList.contains(move)) {
                     if (move.getConflicts() < bestConfig.getTotalConflictCount()) {
                         bestMove = move;
-                        System.out.println("Used aspiration criteria");
                         break;
                     } else {
                         continue;
@@ -84,15 +83,12 @@ public class TabuSearch {
                 long end_time = System.nanoTime() - start_time;
                 sum_time += end_time;
                 iterations_complete++;
-                System.out.println("found in "+ count + " iterations");
-                System.out.println("Average tabu search time = " + (sum_time/iterations_complete));
                 return currentConfig;
             }
             if (currentConfig.getTotalConflictCount() <= bestConfig.getTotalConflictCount()) {
                 bestConfig = currentConfig;
             }
             
-            System.out.println(currentConfig.getTotalConflictCount());
             iterations--;
             count++;
             long end_time = System.nanoTime() - start_time;
@@ -100,7 +96,7 @@ public class TabuSearch {
             iterations_complete++;
         }
 
-        System.out.println("Average tabu search time = " + (sum_time / iterations_complete));
+        //System.out.println("Average tabu search time = " + (sum_time / iterations_complete));
         return bestConfig;
     }
 

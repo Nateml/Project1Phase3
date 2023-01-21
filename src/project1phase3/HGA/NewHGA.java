@@ -73,7 +73,7 @@ public class NewHGA {
                 if (configuration.getTotalConflictCount()==0) {
                     solutionFound = true;
                     k = configuration.partition.size()-1;
-                    System.out.println("Found a solution for " + (k+1) + " colours.");
+                    System.out.println("UPPERBOUND = " + (k+1));
                     break;
                 } else {
                     solutionFound = false;
@@ -90,7 +90,7 @@ public class NewHGA {
                     //System.out.println(child.compare(parents[0]));
                     int childConflictCount = child.getTotalConflictCount();
                     if (childConflictCount == 0) {
-                        System.out.println("Found a solution for "  + k + " colours, in " + i + " evolutionary iterations.");
+                        System.out.println("UPPERBOUND = "  + k);
                         k -=1;
                         solutionFound = true;
                         break;
@@ -203,7 +203,6 @@ public class NewHGA {
 
         // tabu search child
         //child = localSearch(child, 500);
-        System.out.println("Started tabu search");
         BlindTabuSearch blindts = new BlindTabuSearch(child);
         child = blindts.run(100);
         TabuSearch ts = new TabuSearch(child);
