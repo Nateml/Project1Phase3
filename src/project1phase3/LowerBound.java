@@ -58,10 +58,9 @@ public class LowerBound{
         }
     }
 
-
     public int getLowerBound(Graph graph){
         // put the arraylist into a hashmap and hashset of the graph
-        vertexIdArray = new int[graph.getVertices().length];
+        vertexIdArray = new int[graph.getVertices().size()];
         int count = 0;
         for(Vertex vertex: graph.getVertices()){
             Integer a = Integer.valueOf(vertex.identification());

@@ -3,12 +3,14 @@ package project1phase3;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Graph {
     
     private int numVertices, numEdges;
-    private Vertex[] vertices;
+    private ArrayList<Vertex> vertices;
 
     public Graph(String filename) throws FileNotFoundException {
         ArrayList<Vertex> v = new ArrayList<Vertex>();
@@ -54,9 +56,9 @@ public class Graph {
         }
         fileScanner.close();
         
-        this.vertices = v.toArray(new Vertex[0]);
+        this.vertices = v;
         this.numEdges = numE;
-        this.numVertices = numV;
+        this.numVertices = v.size();
     }
 
     public int getNumVertices() {
@@ -67,7 +69,20 @@ public class Graph {
         return numEdges;
     }
 
-    public Vertex[] getVertices() {
+    public void setVertices(ArrayList<Vertex> v) {
+        vertices = v;
+    }
+
+    public void setNumVertices(int numVertices) {
+        this.numVertices = numVertices;
+    }
+
+    public void setNumEdges(int numEdges) {
+        this.numEdges = numEdges;
+    }
+
+    public ArrayList<Vertex> getVertices() {
         return vertices;
     }
+
 }

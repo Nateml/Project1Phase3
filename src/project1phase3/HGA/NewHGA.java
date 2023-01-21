@@ -52,12 +52,9 @@ public class NewHGA {
     double alpha = 0.6;
 
     public NewHGA(Graph graph) {
-        this.v = new ArrayList<>();
+        this.v = graph.getVertices();
         // create array of vertices using the information from the edges.
         // Also notes down that the vertices which are connected by the edge are neighbours.
-        for (Vertex vertex : graph.getVertices()) {
-            v.add(vertex);
-        }
     }
 
     // this method is the "main" method of the class
