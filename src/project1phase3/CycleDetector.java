@@ -1,16 +1,40 @@
 package project1phase3;
 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Random;
+
 public class CycleDetector {
-    // start at a random point in the graph
-    // see if it has degree 2
-    // if yes then go to the right untill you find a point with a degree greater then 2
-    // then do the same to the left
-    // throw away all the points visitied
-    // if you end up at the same point you have found a complete cycle
-    // then check if this complete cycle has as many vertices as the entire graph, if yes
-    //      does it have an even or odd number of vertices, if odd return chromatic number is 3
-    //      if it has even number chromatic number is 2
-    // if the complete cycle has less vertices then the graph then throw away all the vertices
-    // repeat 100? times
+
+    private ArrayList<Integer> removableVertices = new ArrayList<Integer>();
+
+    public static void main(String[] args) throws FileNotFoundException{
+        
+    }
+
+    public void removeCycles(Graph g){
+        Random randomGenerator = new Random();
+        int startingVertex = randomGenerator.nextInt(0, g.getNumVertices());
+        if(LowerBound.vertexMap.get(Integer.valueOf(startingVertex)).getAmountOfNeighbours() == 2){
+            removableVertices.add(Integer.valueOf(startingVertex));
+            ArrayList<Integer> startingNeighbours = LowerBound.vertexMap.get(startingVertex).getNeighboursAsIntList();
+            removeVertex(startingVertex, startingNeighbours.get(0));
+            removeVertex(startingVertex, startingNeighbours.get(1));
+        }
+    }
+
+    private void removeVertex(Integer lastVertex, Integer currentVertex){
+        while(LowerBound.vertexMap.get(currentVertex).getAmountOfNeighbours() == 2){
+            removableVertices.add(currentVertex);
+            Integer nextVertex = 0;
+            for(Integer v:LowerBound.vertexMap.get(currentVertex).getNeighboursAsIntList()){
+                if(v != lastVertex){
+                    nextVertex = v;
+                }
+            }
+            removeVertex(currentVertex, nextVertex);
+        }
+    }
+    
     
 }

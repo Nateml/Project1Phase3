@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 
 public class LowerBound{
-    // now BronKerBosch will return an arrylist of sets
 
     private int maximumCliqueSizeCorrect = 0; // initializes the lower bound
     public static HashMap<Integer, Vertex> vertexMap = new HashMap<>(); // initializes a hashmap where the key
