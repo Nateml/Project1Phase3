@@ -22,7 +22,6 @@ public class TabuSearch {
         int iterations_complete = 0;
         int count = 0;
         while (iterations > 0) {
-            //System.out.println(iterations);
             if (currentConfig.getTotalConflictCount() == 0) {
                 return currentConfig;
             }

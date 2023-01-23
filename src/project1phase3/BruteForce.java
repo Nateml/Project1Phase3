@@ -15,22 +15,25 @@ public class BruteForce {
         // e is the array of the same name generated in the ReadGraph class
         // this method should return the chromatic number
         
-            for (Vertex vertex : g.getVertices()) {
-                this.v.add(vertex.clone());
+        /* 
+            for (int i = 0; i < g.getVertices().size(); i++) {
+                this.v.add(g.getVertices().get(i).clone());
             }
-        
+            */
+
+            this.v = g.getVertices();
 
             for (int j = 0; j < v.size(); j++) {
                 v.get(j).i = j+1; 
             }
 
             for(Vertex vertex: v){
-                vertexMap.put(vertex.i, vertex);
+                vertexMap.put(vertex.identification(), vertex);
             }
     
             int [][] adjMatrix = new int [v.size()][v.size()];
             for (Vertex vertex1 : v) {
-                int[] neighbours = vertexMap.get(vertex1.i).getNeighboursAsIntArray();
+                int[] neighbours = vertexMap.get(vertex1.identification()).getNeighboursAsIntArray();
                 for (Vertex vertex2 : v) {
                     if (ArrayMethods.isInArray(neighbours, vertex2.i)>=0){
                         adjMatrix[vertex1.i-1][vertex2.i-1] = 1;
@@ -88,6 +91,7 @@ public class BruteForce {
     public static int values(int upperbound, int[][] adjMatrix, int lowerBound, boolean runOnce){
         for (int i=lowerBound;i<=upperbound;i++){
             if(addColor(adjMatrix, i)==true){//all vertices are colored
+                System.out.println("worked for " + i);
                 return i;
             } else {
                 if (runOnce) {

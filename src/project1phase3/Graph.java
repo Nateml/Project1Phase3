@@ -71,9 +71,8 @@ public class Graph {
     }
 
     public void analyseAndPrune() {
-        //reduceNodes();
-        //removeCycles();
-        hasOddCycles = false;
+        reduceNodes();
+        removeCycles();
     }
 
     /*

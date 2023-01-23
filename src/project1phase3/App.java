@@ -13,7 +13,7 @@ public class App {
         boolean chromaticNumberIsFound = false;
         
         try {
-            graph = new Graph("./Tournament_TestSuite/phase3_2022_graph05.txt");
+            graph = new Graph("./Tournament_TestSuite/phase3_2022_graph15.txt");
             graph.analyseAndPrune();
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
@@ -23,7 +23,6 @@ public class App {
         BruteForce bf = new BruteForce();
         LowerBound lb = new LowerBound();
         NewHGA hga = new NewHGA(graph);
-
 
         if (graph.getVertices().size() < 100) {
             int lowerbound = lb.getLowerBound(graph);
@@ -38,7 +37,7 @@ public class App {
         } 
         if (!chromaticNumberIsFound) {
             int k = -1;
-            if (graph.hasOddCycles = false) {
+            if (graph.hasOddCycles == false) {
                 k = bf.chromaticNumber(graph, 2, true);
             }
             System.out.println(k);

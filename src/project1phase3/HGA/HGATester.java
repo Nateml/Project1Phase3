@@ -19,19 +19,19 @@ public class HGATester {
         //readGraph("C:/Users/natem/Downloads/Tournament_TestSuite/phase3_2022_graph04.txt");
         //readGraph("C:/Users/natem/Downloads/DIMACS/queen13_13.col");
         //readGraph("C:/Users/natem/Downloads/DIMACS/le450_15c.col.txt");
-        Graph graph = new Graph("./Tournament_TestSuite/phase3_2022_graph02.txt");
-        GraphCleaner gc = new GraphCleaner();
-        CycleDetector cycleDetector = new CycleDetector();
-        cycleDetector.removeCycles(graph);
+        Graph graph = new Graph("./Tournament_TestSuite/phase3_2022_graph11.txt");
+        //GraphCleaner gc = new GraphCleaner();
+        //CycleDetector cycleDetector = new CycleDetector();
+        //cycleDetector.removeCycles(graph);
         //gc.removeCycles(graph);
         //gc.reduceNodes(graph);
-        BruteForce bf = new BruteForce();
-        //int chromatic = bf.chromaticNumber(graph, 2);
+        //BruteForce bf = new BruteForce();
+        //int chromatic = bf.chromaticNumber(graph, 2, true);
 
+        //LowerBound lb = new LowerBound();
+        //int lowerbound = lb.getLowerBound(graph);
+        //System.out.println("LOWERBOUND = " + lowerbound);
         //System.out.println("CHROMATIC NUMBER = " + chromatic);
-        LowerBound lb = new LowerBound();
-        int lowerbound = lb.getLowerBound(graph);
-        System.out.println("LOWERBOUND = " + lowerbound);
         NewHGA hga = new NewHGA(graph);
         System.out.println(hga.upperBound(graph.getVertices().size(), 100));
         try {

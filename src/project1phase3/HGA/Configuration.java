@@ -300,7 +300,11 @@ public class Configuration{
     }
 
     public Vertex getVertexWithMostConflicts() {
-        Vertex v = partition.get(0).get(0);
+        int k = 0;
+        while (partition.get(k).size() == 0) {
+            k++;
+        }
+        Vertex v = partition.get(k).get(0);
         int mostConflicts = 0;
         for (ArrayList<Vertex> colourClass : partition) {
             for (Vertex vertex : colourClass) {

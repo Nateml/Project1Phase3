@@ -22,7 +22,6 @@ public class BlindTabuSearch {
 
         while (iterations > 0) {
 
-            //List<Entry<Vertex, Integer>> conflictCounts = currentConfig.getVertexConflictCounts();
             Vertex v = currentConfig.getVertexWithMostConflicts();
             int i = (int) (Math.random() * currentConfig.partition.size());
 
