@@ -1,81 +1,62 @@
 package project1phase3;
 
-import java.io.FileNotFoundException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
+import project1phase3.BruteForce.BruteForce;
 import project1phase3.HGA.HGA;
 import project1phase3.LowerBound.LowerBound;
 import project1phase3.Shared.Graph;
-import project1phase3.BruteForce.BruteForce;
-import project1phase3.HGA.Configuration;
 
 public class App {
-    
-    /**
-     * The main method of the program.
-     * @param args should contain the path to the graph file as the first element
-     */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        System.out.println("Welcome to our graph colouring program!"); 
+        System.out.println("First, enter the absolute path of the graph file: ");
 
-        Graph graph = null;
-        boolean chromaticNumberIsFound = false;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String filename = br.readLine();
+        //br.close();
 
-        String filename = "./Tournament_TestSuite/phase3_2022_graph01.txt";
-        
-        try {
-            graph = new Graph(filename);
-            graph.analyseAndPrune();
-        } catch (FileNotFoundException e) {
-            System.out.println("Error, file not found.");
-            System.exit(0);
+        System.out.println("Reading file...");
+        Graph graph = new Graph(filename);
+        graph.analyseAndPrune();
+
+        System.out.println("Which algorithm would you like to use?"); 
+        System.out.println("1. Brute Force (Backtracking)");
+        System.out.println("2. Lower Bound (Bronker Bosch)");
+        System.out.println("3. Upper Bound (HEA)");
+
+        br = new BufferedReader(new InputStreamReader(System.in));
+        String input = br.readLine();
+        while (!input.equals("1") && !input.equals("2") && !input.equals("3")) {
+            System.out.println("Please input a valid option (1, 2 or 3).");
+            br = new BufferedReader(new InputStreamReader(System.in));
+            input = br.readLine();
         }
 
-        BruteForce bf = new BruteForce();
-        LowerBound lb = new LowerBound();
-        HGA hga = new HGA(graph);
 
-        if (graph.getVertices().size() < 100) {
-            int lowerbound = lb.getLowerBound(graph);
-            System.out.println("NEW BEST LOWER BOUND = " + lowerbound);
-            // run brute force if chromatic number if the number of vertices is less than 100 and the lowerbound is less than 5
-            if (lowerbound < 4) {
+        LowerBound lb = new LowerBound();
+        int lowerbound;
+        switch(input.charAt(0)) {
+            case '1':
+                BruteForce bf = new BruteForce();
+                lb = new LowerBound();
+                lowerbound = lb.getLowerBound(graph);
                 int k = bf.chromaticNumber(graph, lowerbound, false);
                 System.out.println("CHROMATIC NUMBER = " + k);
-                chromaticNumberIsFound = true;
-            } 
-        } 
-        if (!chromaticNumberIsFound) {
-            int k = -1;
-            // check if graph is bipartite (bipartite graphs cannot have odd cycles)
-            if (graph.hasOddCycles == false) {
-                k = bf.chromaticNumber(graph, 2, true);
-            }
-            if (k == 2) {
-                System.out.println("CHROMATIC NUMBER = " + k);
-            } else { 
-                // DSatur
-                Configuration config = new Configuration(graph.getVertices(), graph.getVertices().size());
-                config.initDsatur();
-                System.out.println("NEW BEST UPPER BOUND = " + config.partition.size());
-
-                int lowerBound = 1;
-                try {
-                    graph = new Graph(filename);
-                    graph.analyseAndPrune();
-                    // Lowerbound
-                    lowerBound = lb.getLowerBound(graph);
-                    System.out.println("NEW BEST LOWER BOUND = " + lowerBound);
-                } catch (FileNotFoundException e) {
-                    System.out.println("Error, unable to read file.");
-                    System.exit(0);
-                }
-
-                // Upperbound
-                int upperBound = hga.upperBound(config.partition.size()-1, 100, lowerBound);
-                System.out.println("NEW BEST UPPER BOUND = " + upperBound);
-
-            }
+                break;
+            case '2':
+                lb = new LowerBound();
+                lowerbound = lb.getLowerBound(graph);
+                System.out.println("LOWERBOUND = " + lowerbound);
+                break;
+            case '3':
+                HGA hga = new HGA(graph);
+                int upperbound = hga.upperBound(graph.getVertices().size(), 100, 1);
+                break;
         }
 
-
+        br.close();
     }
 }

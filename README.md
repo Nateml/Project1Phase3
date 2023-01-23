@@ -1,18 +1,15 @@
-## Getting Started
+This program has two main classes which can be run:
+App.java and SmartApp.java
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Running App.java will provide you with a text based interface with which you can enter the file path of the graph, and then select an algorithm to run.
 
-## Folder Structure
+SmartApp.java is the program submitted as a jar file for the tournament. It contains more logic for deciding which algorithms to run (and in which order), and thus does not let you choose which algorithm you want to run.
 
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+Created by:
+Nathan Macdonald,
+Kasper van der Horst,
+Dorina Sîli, 
+Oguz Kagan Yarim,
+Miriam Espinosa,
+Julius Verschoof, 
+Vladimir Gonchar.
