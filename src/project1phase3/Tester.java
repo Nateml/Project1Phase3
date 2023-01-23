@@ -41,21 +41,21 @@ public class Tester {
             LowerBound lb = new LowerBound();
             NewHGA hga = new NewHGA(graph);
 
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 3; i++) {
                 long lowerboundStartTime = System.nanoTime();
                 int lowerbound = lb.getLowerBound(graph);
                 lowerboundTime += System.nanoTime() - lowerboundStartTime;
                 System.out.println("LOWERBOUND = " + lowerbound);
             }
-            lowerboundTime = lowerboundTime / 10;
+            lowerboundTime = lowerboundTime / 3;
 
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 3; i++) {
                 long upperboundStartTime = System.nanoTime();
                 int upperbound = hga.upperBound(graph.getVertices().size(), 2);
                 upperboundTime += System.nanoTime() - upperboundStartTime;
                 System.out.println("UPPERBOUND = " + upperbound);
             } 
-            upperboundTime = upperboundTime / 10;
+            upperboundTime = upperboundTime / 3;
 
             pruneTimes[index] = pruneTime;
             lowerboundTimes[index] = lowerboundTime;
