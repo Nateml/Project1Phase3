@@ -211,7 +211,7 @@ public class NewHGA {
         BlindTabuSearch blindts = new BlindTabuSearch(child);
         child = blindts.run(100);
         TabuSearch ts = new TabuSearch(child);
-        child = ts.run(5000);
+        child = ts.run(300);
         if (child.getTotalConflictCount() == 0) {
             return child;
         }
