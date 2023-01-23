@@ -7,10 +7,11 @@ public class GraphCleaner {
     public GraphCleaner() {
     }
 
+    /* 
     public int removeCycles(Graph g) {
         ArrayList<Vertex> badNodes = new ArrayList<>();
-        for (int i = 0; i < g.getNumVertices(); i++) {
-            int rNum = (int) (Math.random() * g.getNumVertices());
+        for (int i = 0; i < g.getVertices().size(); i++) {
+            int rNum = (int) (Math.random() * g.getVertices().size());
             if (g.getVertices().get(rNum).getAmountOfNeighbours() == 2) {
                 boolean hasDegreeTwo = true;
                 ArrayList<Vertex> visitedNodes = new ArrayList<>();
@@ -57,8 +58,8 @@ public class GraphCleaner {
 
                 badNodes.addAll(visitedNodes);
 
-                if (visitedNodes.size() == g.getNumVertices()) {
-                    if (g.getNumVertices() % 2 == 0) {
+                if (visitedNodes.size() == g.getVertices().size()) {
+                    if (g.getVertices().size() % 2 == 0) {
                         return 2;
                     } else {
                         return 3;
@@ -70,6 +71,7 @@ public class GraphCleaner {
         return 0;
 
     }
+    */
 
     /**
      * Completely removes nodes with only one neighbour from the graph
@@ -79,7 +81,7 @@ public class GraphCleaner {
         ArrayList<Vertex> badNodes = new ArrayList<>();
         ArrayList<Vertex> newNodes = new ArrayList<>();
         int edgesRemoved = 0;
-        for (int i = 0; i < g.getNumVertices(); i++) {
+        for (int i = 0; i < g.getVertices().size(); i++) {
             if (g.getVertices().get(i).getAmountOfNeighbours() == 1) {
                 badNodes.add(g.getVertices().get(i));
             }
@@ -90,16 +92,16 @@ public class GraphCleaner {
                 badNodes.get(i).getNeighbours().get(0).getNeighbours().remove(badNodes.get(i));
             }
         }
-        for (int i = 0; i < g.getNumVertices(); i++) {
+        for (int i = 0; i < g.getVertices().size(); i++) {
             Vertex v = g.getVertices().get(i);
             if (v.getAmountOfNeighbours() != 1 && v.getAmountOfNeighbours() != 0) {
                 newNodes.add(v);
             }
         }
-        System.out.print("Removed " + badNodes.size() + " vertices (" + g.getNumVertices() + " --> ");
+        System.out.print("Removed " + badNodes.size() + " vertices (" + g.getVertices().size() + " --> ");
         g.setVertices(newNodes);
-        g.setNumVertices(g.getNumVertices() - badNodes.size());
-        System.out.println(g.getNumVertices() + ")");
+        g.setNumVertices(g.getVertices().size() - badNodes.size());
+        System.out.println(g.getVertices().size() + ")");
         System.out.print("Removed " + edgesRemoved + " edges (" + g.getNumEdges() + " --> ");
         g.setNumEdges(g.getNumEdges() - edgesRemoved);
         System.out.println(g.getNumEdges() + ")");

@@ -67,7 +67,6 @@ public class LowerBound{
             vertexIdArray[count] = vertex.identification();
             count++;
         }
-        System.out.println("start");
         MergeSort.mergesort(vertexIdArray);
         vertexSet = Arrays.stream(vertexIdArray).boxed().collect(Collectors.toCollection(LinkedHashSet::new));
         LinkedHashSet<Integer> initialGrowingClique = new LinkedHashSet<Integer>();
