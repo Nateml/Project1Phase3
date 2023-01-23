@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import project1phase3.Vertex;
+import project1phase3.BruteForce;
 import project1phase3.Graph;
 import project1phase3.GraphCleaner;
 import project1phase3.LowerBound;
@@ -17,9 +18,14 @@ public class HGATester {
         //readGraph("C:/Users/natem/Downloads/Tournament_TestSuite/phase3_2022_graph04.txt");
         //readGraph("C:/Users/natem/Downloads/DIMACS/queen13_13.col");
         //readGraph("C:/Users/natem/Downloads/DIMACS/le450_15c.col.txt");
-        Graph graph = new Graph("./Tournament_TestSuite/phase3_2022_graph20.txt");
+        Graph graph = new Graph("./Tournament_TestSuite/phase3_2022_graph02.txt");
         GraphCleaner gc = new GraphCleaner();
-        gc.reduceNodes(graph);
+        //gc.removeCycles(graph);
+        //gc.reduceNodes(graph);
+        BruteForce bf = new BruteForce();
+        //int chromatic = bf.chromaticNumber(graph, 2);
+
+        //System.out.println("CHROMATIC NUMBER = " + chromatic);
         LowerBound lb = new LowerBound();
         int lowerbound = lb.getLowerBound(graph);
         System.out.println("LOWERBOUND = " + lowerbound);

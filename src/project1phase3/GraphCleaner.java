@@ -7,6 +7,70 @@ public class GraphCleaner {
     public GraphCleaner() {
     }
 
+    public int removeCycles(Graph g) {
+        ArrayList<Vertex> badNodes = new ArrayList<>();
+        for (int i = 0; i < g.getNumVertices(); i++) {
+            int rNum = (int) (Math.random() * g.getNumVertices());
+            if (g.getVertices().get(rNum).getAmountOfNeighbours() == 2) {
+                boolean hasDegreeTwo = true;
+                ArrayList<Vertex> visitedNodes = new ArrayList<>();
+                Vertex currentVertex = g.getVertices().get(rNum);
+                visitedNodes.add(currentVertex);
+
+                boolean completeCycle = false;
+
+                // traverse right
+                currentVertex = currentVertex.getNeighbours().get(0);
+                while (hasDegreeTwo) {
+                    System.out.println("first loop");
+                    visitedNodes.add(currentVertex);
+                    if (!visitedNodes.contains(currentVertex.getNeighbours().get(0))) {
+                        currentVertex = currentVertex.getNeighbours().get(0);
+                    } else if (!visitedNodes.contains(currentVertex.getNeighbours().get(1))) {
+                        currentVertex = currentVertex.getNeighbours().get(1);
+                    } else {
+                        completeCycle = true;
+                        break;
+                    }
+                    hasDegreeTwo = currentVertex.getAmountOfNeighbours() == 2;
+                    if (currentVertex.equals(g.getVertices().get(rNum))) {
+                        completeCycle = true;
+                        break;
+                    }
+                }
+
+                // traverse left
+                currentVertex = g.getVertices().get(rNum).getNeighbours().get(1);
+                while (hasDegreeTwo && !completeCycle) {
+                    System.out.println("second loop");
+                    visitedNodes.add(currentVertex);
+                    if (!visitedNodes.contains(currentVertex.getNeighbours().get(1))) {
+                        currentVertex = currentVertex.getNeighbours().get(1);
+                    } else if (!visitedNodes.contains(currentVertex.getNeighbours().get(1))) {
+                        currentVertex = currentVertex.getNeighbours().get(1);
+                    } else {
+                        completeCycle = true;
+                        break;
+                    }
+                    hasDegreeTwo = currentVertex.getAmountOfNeighbours() == 2;
+                }
+
+                badNodes.addAll(visitedNodes);
+
+                if (visitedNodes.size() == g.getNumVertices()) {
+                    if (g.getNumVertices() % 2 == 0) {
+                        return 2;
+                    } else {
+                        return 3;
+                    }
+                }
+            }
+        }
+        System.out.println("removed " + badNodes.size() + " vertices");
+        return 0;
+
+    }
+
     /**
      * Completely removes nodes with only one neighbour from the graph
      * @param g the graph

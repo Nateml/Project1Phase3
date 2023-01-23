@@ -11,16 +11,11 @@ public class BruteForce {
     HashMap<Integer, Vertex> vertexMap = new HashMap<>(); // initializes a hashmap
     
     
-    public int chromaticNumber(Vertex[] vertices, int lowerbound) { 
+    public int chromaticNumber(Graph g, int lowerbound) { 
         // e is the array of the same name generated in the ReadGraph class
         // this method should return the chromatic number
         
-        this.v = new ArrayList<>();
-        // create array of vertices using the information from the edges.
-        // Also notes down that the vertices which are connected by the edge are neighbours.
-        for (Vertex vertex : vertices) {
-            this.v.add(vertex);
-        }
+            this.v = g.getVertices();
         
 
             for (int j = 0; j < v.size(); j++) {
@@ -92,7 +87,9 @@ public class BruteForce {
         for (int i=lowerBound;i<=upperbound;i++){
             if(addColor(adjMatrix, i)==true){//all vertices are colored
                 return i;
-            } 
+            } else {
+                //return -1;
+            }
         }
         return upperbound;
     }
