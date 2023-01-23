@@ -24,6 +24,14 @@ class SaturationComparator implements Comparator<Vertex> {
     }
 }
 
+class NeighboursComparator implements Comparator<Vertex> {
+
+    @Override
+    public int compare(Vertex v1, Vertex v2) {
+        return Integer.compare(v2.getAmountOfNeighbours(), v1.getAmountOfNeighbours());
+    }
+}
+
 class conflictCountComparator implements Comparator<Entry<Vertex, Integer>> {
     // this class is used to sort vertices by the amount of neighbours they have in their colour class
 
@@ -203,7 +211,7 @@ public class NewHGA {
         BlindTabuSearch blindts = new BlindTabuSearch(child);
         child = blindts.run(100);
         TabuSearch ts = new TabuSearch(child);
-        child = ts.run(5000);
+        child = ts.run(500);
         if (child.getTotalConflictCount() == 0) {
             return child;
         }

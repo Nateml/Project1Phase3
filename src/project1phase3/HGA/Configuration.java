@@ -8,14 +8,14 @@ import java.util.Map.Entry;
 
 import project1phase3.Vertex;
 
-class Configuration{
+public class Configuration{
     /*
      * A class responsible for creating and storing an individual
      * "configuration", which is a partition of k subsets of the
      * set of vertices.
      */
 
-    ArrayList<ArrayList<Vertex>> partition;
+    public ArrayList<ArrayList<Vertex>> partition;
     private boolean isSolution = false;
     int conflictCount = -1;
     int k;

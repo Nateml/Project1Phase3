@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import project1phase3.Vertex;
 import project1phase3.BruteForce;
+import project1phase3.CycleDetector;
 import project1phase3.Graph;
 import project1phase3.GraphCleaner;
 import project1phase3.LowerBound;
@@ -20,6 +21,8 @@ public class HGATester {
         //readGraph("C:/Users/natem/Downloads/DIMACS/le450_15c.col.txt");
         Graph graph = new Graph("./Tournament_TestSuite/phase3_2022_graph02.txt");
         GraphCleaner gc = new GraphCleaner();
+        CycleDetector cycleDetector = new CycleDetector();
+        cycleDetector.removeCycles(graph);
         //gc.removeCycles(graph);
         //gc.reduceNodes(graph);
         BruteForce bf = new BruteForce();
@@ -30,7 +33,7 @@ public class HGATester {
         int lowerbound = lb.getLowerBound(graph);
         System.out.println("LOWERBOUND = " + lowerbound);
         NewHGA hga = new NewHGA(graph);
-        System.out.println(hga.upperBound(graph.getNumVertices(), 100));
+        System.out.println(hga.upperBound(graph.getVertices().size(), 100));
         try {
             long average_crossover_time = hga.sum_time_crossover / hga.crossover_iterations;
             long average_tabu_time = hga.sum_time_tabu / hga.tabu_iterations;
