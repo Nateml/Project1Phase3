@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import project1phase3.Vertex;
+import project1phase3.Shared.Vertex;
 
 public class Configuration{
     /*
@@ -16,7 +16,6 @@ public class Configuration{
      */
 
     public ArrayList<ArrayList<Vertex>> partition;
-    private boolean isSolution = false;
     int conflictCount = -1;
     int k;
     ArrayList<Vertex> vertices;
@@ -38,6 +37,11 @@ public class Configuration{
         this.vertices = vertices;
     }
 
+    /**
+     * Checks for equality by comparing vertices in the same position in both configurations
+     * @param c
+     * @return true if equal, false otherwise
+     */
     public boolean equals(Configuration c) {
         if (c.partition.size() != this.partition.size()) return false;
         for (int i = 0; i < c.partition.size(); i++) {
@@ -67,6 +71,9 @@ public class Configuration{
         return new Configuration(newVertices, k, newPartition);
     }
 
+    /**
+     * Performs the DSatur algorithm to fill the partition.
+     */
     public void initDsatur() {
         // sorts V by saturation degree:
         vertices.sort(new SaturationComparator());
@@ -77,6 +84,8 @@ public class Configuration{
                 if (j >= partition.size()) {
                     partition.add(new ArrayList<Vertex>());
                 }
+
+                // check if colour class contains a neighbour of the current vertex
                 boolean isConflictingSet = false;
                 for (int l = 0; l < partition.get(j).size(); l++) { // looping through every vertex in the colour class
                     if (vertices.get(i).getNeighboursAsIntList().contains(partition.get(j).get(l).identification())) {
@@ -84,13 +93,17 @@ public class Configuration{
                         break;
                     }
                 }
-                if (!isConflictingSet) {
+
+                // add vertex to colour class if the class does not contain a neighbour
+                if (!isConflictingSet) { 
                     partition.get(j).add(vertices.get(i));
                     vertexAssigned = true;
                     break;
                 }
             }
-            if (!vertexAssigned) { // randomnly assigns remaining vertices
+
+            // randomnly assign remaining vertices
+            if (!vertexAssigned) { 
                 int rNum = (int) (Math.random() * k);
                 partition.get(rNum).add(vertices.get(i));
             }
@@ -145,11 +158,6 @@ public class Configuration{
                             conflictCount++;
                         }
                     }
-                    /* 
-                    if (partition.get(i).contains(partition.get(i).get(j).getNeighbours().get(neighbour))) {
-                        conflictCount++;
-                    }
-                    */
                 }
             }
         }
@@ -170,11 +178,6 @@ public class Configuration{
                 if (!largestColourClass.stream().anyMatch(element -> partition.get(i2).get(j2).identification() == element.identification())) {
                     newPartition.get(i).add(partition.get(i).get(j));
                 }
-                /* 
-                if (!largestColourClass.contains(partition.get(i).get(j))) {
-                    newPartition.get(i).add(partition.get(i).get(j));
-                }
-                */
             }
         }
         return newPartition;
@@ -184,12 +187,21 @@ public class Configuration{
         this.conflictCount = conflicts;
     }
 
+    /**
+     * Moves a vertex to a different colour class.
+     * @param pos the position of the vertex to be moved
+     * @param i the colour class the vertex should be moved to
+     */
     public void moveVertex(int[] pos, int i) {
         Vertex v = partition.get(pos[0]).get(pos[1]);
         partition.get(pos[0]).remove(pos[1]);
         partition.get(i).add(v);
     }
 
+    /**
+     * @param v
+     * @return the position of the vertex in the position
+     */
     public int[] getVertexPos(int v) {
         int[] vertexPos = new int[2];
         boolean foundVertex = false;
@@ -207,6 +219,11 @@ public class Configuration{
         return vertexPos;
     }
 
+    /**
+     * Moves a vertex to a colour class.
+     * @param v the vertex to be moved
+     * @param i the colour class that the vertex should be moved to
+     */
     public void moveVertex(int v, int i) {
         int[] vertexPos = new int[2];
         boolean foundVertex = false;
@@ -224,6 +241,10 @@ public class Configuration{
         moveVertex(vertexPos, i);
     }
 
+    /**
+     * Checks if the configuration contains duplicate vertices
+     * @return true if the configuration is valid, false otherwise
+     */
     public boolean validate() {
         HashMap<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < partition.size(); i++) {
@@ -255,12 +276,18 @@ public class Configuration{
         return num;
     }
 
+    /**
+     * Returns a list of neighbouring configurations.
+     * A neighbouring configuration is defined as any configuration produced as a result of moving a conflicting
+     *  vertex to a different colour class.
+     * @return
+     */
+    /*
     public List<Configuration> getNeighbours() {
         List<Configuration> neighbours = new ArrayList<>();
         for (int i = 0; i < partition.size(); i++) {
-            final int i2 = i;
             for (int j = 0; j < partition.get(i).size(); j++) {
-                final int j2 = j;
+                // check if the vertex is a conflicting vertex
                 boolean containsNeighbour = false;
                 for (int k = 0; k < partition.get(i).size(); k++) {
                     for (int k2 = 0; k2 < partition.get(i).get(j).getNeighbours().size(); k2++) {
@@ -270,7 +297,8 @@ public class Configuration{
                         }
                     }
                 }
-                // if (partition.get(i).stream().anyMatch(element -> partition.get(i2).get(j2).getNeighboursAsIntList().contains(element.identification()))) {
+
+                // if the vertex is a conflicting vertex, generate a neighbouring configuration in which the vertex has been moved to a different colour class.
                 if (containsNeighbour) {
                     int rnum = (int) (Math.random() * partition.size());
                     while (rnum != i) {
@@ -288,6 +316,7 @@ public class Configuration{
         }
         return neighbours;
     }
+    */
 
     @Override
     public String toString() {
